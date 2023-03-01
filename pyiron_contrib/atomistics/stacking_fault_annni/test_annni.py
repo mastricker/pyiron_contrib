@@ -55,4 +55,19 @@ class TestANNNI(unittest.TestCase):
         for val, ref_val in zip(sfI2, ref_sfI2):
             self.assertLessEqual(np.abs(ref_val-val), 1e-8)
 
+    def test_structure_create(self):
+        project = Project(self.project_name)
+        job = project.create_job(job_type=StackingFaultANNNI,
+                                 job_name=self.job_name,
+                                 delete_existing_job=True)
         
+        job.reference_structure = project.create.structure.bulk(self.element,
+                                                                a=self.lattice_constant,
+                                                                orthorhombic=False).repeat(2)
+        job.potential = self.potential
+        job.calc_anni(temperature=self.temp_max, steps=self.temp_steps)
+
+        sf1, sf2 = job._create_sf_structures()
+
+        print("SF1 structure")
+        print(sf1.get_positions())

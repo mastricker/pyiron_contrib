@@ -149,7 +149,7 @@ class StackingFaultANNNI(GenericJob):
             SF_structure_1 = self._create_hcp_structure(self.minimum_structure)
             SF_structure_2 = self._create_dhcp_structure(SF_structure_1)
         else:
-            SF_structure_1 = self._create_fcc_structure(self.minimum_structure)
+            SF_structure_1 = self._create_fcc_structure(self.minimum_structure) *2
             SF_structure_2 = self._create_dhcp_structure(self.minimum_structure)
         return SF_structure_1, SF_structure_2
 
